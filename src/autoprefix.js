@@ -1,6 +1,5 @@
 'use strict'
 
-import map from 'lodash/map'
 import objectAssign from 'object-assign'
 
 const transforms = {
@@ -97,9 +96,11 @@ const transforms = {
 
 export const autoprefix = (elements) => {
   const prefixed = {}
-  map(elements, (styles, element) => {
+  Object.keys(elements).map(element => {
+    const styles = elements[element]
     const expanded = {}
-    map(styles, (value, key) => {
+    Object.keys(styles).map(key => {
+      const value = styles[key]
       const transform = transforms[key]
       if (transform) {
         objectAssign(expanded, transform(value))
